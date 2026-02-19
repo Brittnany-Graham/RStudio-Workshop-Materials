@@ -1,0 +1,141 @@
+---
+title: "Iris Dataset"
+author: "Brittnany Graham"
+date: "2026-02-19"
+output: html_document
+---
+
+## Iris Dataset
+
+The iris data set is a classic dataset in R, and contains the measurements of sepal length, sepal width, petal length, and petal width of three species of iris flowers
+
+There will be a few questions to help guide you through this workshop
+
+### General Advice
+
+When looking at questions through the workshop, my best advice is to understand that R is a tool to make a big picture.
+The question is generally the big picture.
+You, as a future coder and scientist is to understand the puzzle pieces to make the big picture come to life
+
+## General packages we will use
+
+The tidyverse package houses multiple packages that is used frequently in RStudio, such as ggplot2, lubridate, dplyr, and purrr. This is to avoid loading multiple libraries each time 
+
+```{r}
+# install.packages("tidyverse")
+library(tidyverse)
+
+```
+## Question 1
+
+How many species of iris flowers in this data set? What are their names?
+
+*Hint:* start with creating an object to put iris in (name it something other than iris, get creative)
+
+
+```{r}
+
+flowers <- iris
+
+## head is to view the top 5/6 rows of a dataset 
+head(flowers)
+
+## the 'unique' function
+unique(flowers$Species)
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
