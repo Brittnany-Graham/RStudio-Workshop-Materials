@@ -1,0 +1,155 @@
+---
+title: "Iris Dataset practice"
+author: "Brittnany Graham"
+format: docx
+editor: visual
+---
+
+## Iris Dataset
+
+The iris data set is a classic dataset in R, and contains the measurements of sepal length, sepal width, petal length, and petal width of three species of iris flowers
+
+There will be a few questions to help guide you through this workshop
+
+### General Advice
+
+When looking at questions through the workshop, my best advice is to understand that R is a tool to make a big picture.
+Therefore, the question being asked is generally the big picture.
+You, as a future coder and scientist is to understand the puzzle pieces to make the big picture come to life
+
+## General packages we will use
+
+The tidyverse package houses multiple packages that is used frequently in RStudio, such as ggplot2, lubridate, dplyr, and purrr.
+This is to avoid loading multiple libraries each time
+
+```{r}
+# install.packages("tidyverse")
+library(tidyverse)
+
+# putting the iris dataset in a new object name
+```
+
+::: callout-note
+## Differences between warnings and errors
+
+Warning errors are normally harmless in RStudio.
+They are simply warning you of some things that it's doing behind the scenes.
+However, errors means something is critically wrong and R terminated the line of code you tried to run.
+Error messages can sometimes be vague, but we can work through a few of them together.
+:::
+
+## Task One: Explore the data
+
+Take a moment and explore the Iris data set.
+Play around with different functions!
+What are some returns you get?
+What are some questions that first pop into your mind?
+What kind of structure is the data set?
+
+```{r}
+str(flowers)
+head(flowers)
+
+```
+
+## Question 1
+
+How many species of iris flowers in this data set?
+What are their names?
+
+*Hint:* start with creating an object to put iris in (name it something other than iris, get creative)
+
+```{r}
+
+flowers <- iris
+
+## head is to view the top 5/6 rows of a dataset 
+head(flowers)
+
+## the 'unique' function
+unique(flowers$Species)
+
+```
+
+Answer here:
+
+## Question 2
+
+What is the average petal width of each species?
+
+*Hint*: You'll want to subset each species into their own object names
+
+**Answer code:**
+
+```{r}
+
+unique(flowers$Species)
+
+# subsetting the different species
+setosa <- flowers %>%
+  filter(Species == "setosa")
+
+versicolor <- flowers %>%
+  filter(Species == "versicolor")
+
+virginica <- flowers %>%
+  filter (Species == "virginica")
+
+## Next going to calculate the average petal width of each species
+
+mean(setosa$Petal.Width)
+mean(versicolor$Petal.Width)
+mean(virginica$Petal.Width)
+```
+
+## Question 3
+
+This question is in two parts, don't worry, I will help you through each step!
+The beauty of R is that once you do it once, you can modify and update the code to reflect what you need for a different project!
+
+::: {#ggplot2}
+This is where ggplot2 gets introduced!
+It's a package within the tidyverse package, but it's government name is "Grammar of Graphics"
+
+It's a way to create beautiful, publish quality plots in RStudio.
+
+Talk more here about the structure of ggplot()
+:::
+
+First, create a scatter plot that showcases the relationship between sepal length and petal length for the entire data set
+
+-   *Don't forget* break this big picture question into small puzzle pieces
+
+**First bit**
+
+```{r}
+global_plot <- ggplot(flowers, aes(x = Petal.Length, y = Sepal.Length, shape = Species, color = Species)) +
+  geom_point() +
+  theme_classic()
+
+global_plot
+```
+
+```{r}
+setosa_plot <- ggplot(setosa, aes(x = Petal.Length, y = Sepal.Length)) +
+  geom_point() +
+  theme_classic()
+
+setosa_plot
+```
+
+Looks, okay, right?
+You can see the points, make some general assumptions about this graph, but we can spruce it up a bit!
+
+Let's rename the axis titles and give this plot a title for a cleaner look
+
+```{r}
+setosa_plot2 <- ggplot(setosa, aes(x = Petal.Length, y = Sepal.Length)) +
+  geom_point() +
+  labs(x = "Petal Length",
+       y = "Sepal Length",
+       title = "Setosa correlation between Petal and Sepal Length") +
+  theme_classic()
+
+setosa_plot2
+```
