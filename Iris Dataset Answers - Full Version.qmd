@@ -1,7 +1,7 @@
 ---
-title: "Iris Dataset practice"
+title: "Iris Dataset Practice - Answers"
 author: "Brittnany Graham"
-format: docx
+format: html
 editor: visual
 ---
 
@@ -22,14 +22,14 @@ You, as a future coder and scientist is to understand the puzzle pieces to make 
 The tidyverse package houses multiple packages that is used frequently in RStudio, such as ggplot2, lubridate, dplyr, and purrr.
 This is to avoid loading multiple libraries each time
 
-```{r}
-# install.packages("tidyverse")
-library(tidyverse)
+```{r} # install.packages("tidyverse")}
+
+library(tidyverse) 
 
 # putting the iris dataset in a new object name
 ```
 
-::: callout-note
+::: callout-tip
 ## Differences between warnings and errors
 
 Warning errors are normally harmless in RStudio.
@@ -72,9 +72,8 @@ What are some questions that first pop into your mind?
 What kind of structure is the data set?
 
 ```{r}
-str(flowers)
-head(flowers)
-
+str(flowers) 
+head(flowers) 
 ```
 
 ## Question 1
@@ -87,18 +86,41 @@ What are their names?
 *Challenge:* If you want to rename the column names more intuitive, how would you do that?
 
 ```{r}
+flowers <- iris  
 
-flowers <- iris
+## head is to view the top 5/6 rows of a dataset  
 
-## head is to view the top 5/6 rows of a dataset 
-head( )
+head(flowers)  
 
-## the 'unique' function
-unique( )
+## the 'unique' function 
 
+unique(flowers$Species) 
 ```
 
 Answer here:
+
+1.  There are 3 species of flower: versicolor, virginica, setosa
+
+```{r}
+
+flowers <- flowers %>%
+  rename('Sepal Length' = Sepal.Length)
+
+flowers <- flowers %>%
+  rename('Sepal Width' = Sepal.Width)
+
+flowers <- flowers %>%
+  rename('Petal Length' = Petal.Length)
+
+flowers <- flowers %>%
+  rename('Petal Width' = Petal.Width)
+
+# Always make sure what you are executing is what you wanted the code to do. Sometimes RStudio will do exactly what you tell it to do, which is a blessing and a curse. Once you have made a change to the dataset, it becomes permanent
+
+head(flowers)
+
+## here you see that I was able to rename the column names of each of the variables that were measured for each species
+```
 
 ## Question 2
 
@@ -109,31 +131,29 @@ What is the average petal width of each species?
 **Answer code:**
 
 ```{r}
+unique(flowers$Species) 
 
-unique(flowers$Species)
+# subsetting the different species 
+setosa <- flowers %>%   filter(Species == "setosa")  
+versicolor <- flowers %>%   filter(Species == "versicolor")  
+virginica <- flowers %>%   filter (Species == "virginica")  
 
-# subsetting the different species
-setosa <- flowers %>%
-  filter(Species == "setosa")
+## Next going to calculate the average petal width of each species  
 
-versicolor <- flowers %>%
-  filter(Species == "versicolor")
+mean(setosa$`Petal Width`) 
 
-virginica <- flowers %>%
-  filter (Species == "virginica")
+mean(versicolor$`Petal Width`) 
 
-## Next going to calculate the average petal width of each species
-
-mean()
-mean()
-mean()
+mean(virginica$`Petal Width`)
 ```
 
-## Small Intro to ggplot package
+**Answer:**
 
-*'ggplot2'* is a graphing package from the tidyverse.
-It's incredibly powerful for creating presentation ready and publication-quality graphics.
-There are numerous types of graphs you can create, and you can add onto your code easily to make the graphics more complex.
+Setosa = 0.246
+
+Versicolor = 1.326
+
+Virginica = 2.026
 
 ## Question 3
 
@@ -156,9 +176,10 @@ First, create a scatter plot that showcases the relationship between sepal lengt
 **First bit**
 
 ```{r}
-global_plot <- ggplot(flowers, aes(x = Petal.Length, y = Sepal.Length, shape = Species, color = Species)) +
-  geom_point() +
-  theme_classic()
+
+global_plot <- ggplot(flowers, aes(x = Petal.Length, y = Sepal.Length, shape = Species, color = Species)) +   
+  geom_point() +   
+  theme_classic()  
 
 global_plot
 ```
@@ -168,15 +189,7 @@ You can see the points, make some general assumptions about this graph, but we c
 
 Let's rename the axis titles and give this plot a title for a cleaner look
 
-```{r}
-global_plot2 <- ggplot(flowers, aes(x = Petal.Length, y = Sepal.Length, shape = Species, color = Species)) +
-  geom_point() +
-  labs(x = "Petal Length",
-       y = "Sepal Length",
-       title = "Petal and Sepal Length of 3 Species of Flowers") +
-  theme_classic()
-
-global_plot2
+```{r} global_plot2 <- ggplot(flowers, aes(x = Petal.Length, y = Sepal.Length, shape = Species, color = Species)) +   geom_point() +   labs(x = "Petal Length",        y = "Sepal Length",        title = "Petal and Sepal Length of 3 Species of Flowers") +   theme_classic()  global_plot2}
 ```
 
 There are many ways you can spruce up this graph!
@@ -185,6 +198,5 @@ You can change the shapes of each species, you can even change the color, change
 If you are interested in how to do that, this link [R Graphics Cookbook 2nd Edition](https://r-graphics.org/) is a wonderful tool and reference.
 I use it frequently when coding and making publishable graphs.
 
-```{r}
-library(help = 'datasets')
+```{r} library(help = 'datasets')}
 ```

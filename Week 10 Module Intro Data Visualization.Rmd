@@ -1,0 +1,259 @@
+---
+title: "Introduction to Data Visualization Lecture"
+author: "S. A. Valentine"
+date: "7/3/2024"
+output: html_document
+---
+
+# Introduction
+
+This lecture will cover initial basics of data visualization in R. The in-class exercises build on our Data types and figures lecture and the assignments build on the Dplyr lecture. Please refer back to these lectures to synthesize your information if needed. 
+
+Data required:
+
+Fisheries Data for walk-through examples and assignment: Long Term Resource Monitoring (LTRM) element fish community assemblage data of the Upper Mississippi River System housed at the Upper Mississippi Environmental Science Center (UMESC) with the USGS. 
+
+Forestry Data for walk-through examples: Trees dataset inherent in R. Includes girth (diameter at breast height), height, and volume of felled black cherry trees.
+
+Iris data for assignment: Iris dataset inherent in R. Includes sepal length and width, petal length and width, and species. 
+
+
+Goals: 
+
+1. Review types of figures and the data that are appropriate for each figure. 
+
+1. Understand the difference between global and aesthetic parameters in a figure and data positioning.
+
+1. Write code that creates basic figures and alter figure parameters.
+
+---
+
+# Visualization
+
+We will now move from wrangling the data to visualizing the data in this course. However, we will also call on some of the functions we used in the previous lessons of this course. We will work in `ggplot2` package to visualize our data. 
+
+### Introduction
+
+`ggplot2` is a graphing package from the tidyverse. It is incredibly powerful for creating publication-quality graphics. There are numerous types of graphs you can create, and you can add onto your code easily to make the graphics more complex. You can even pipe (%>%) directly from `dplyr` into `ggplot2` (If you need a refresher with the pipe (%>%), see the data wrangling lessons). However, instead of continuing with the pipe throughout, you switch to using `+` within `ggplot2` to add more code. 
+
+### Basics
+
+`ggplot2` builds on code. So you keep code and if you want to add a legend, axis labels, colors, etc., you use a `+` and make a new code line. It reads nicely when you type everything out. 
+
+
+```{r read data, message=FALSE, warning=FALSE}
+#load the ggplot2 package
+library(ggplot2)
+library(dplyr)
+library(readr)
+
+#read the data
+fish <- read_csv("./Data/2018 LTRM data.csv", col_types = list(weight = col_double())) #fisheries data, remember to make weight a numeric variable using list(weight = col_double()), otherwise R reads it as a factor
+
+data(trees) #call the built-in trees dataset
+str(trees)
+```
+
+
+The syntax for graphing in ggplot is to specify the dataset and variables from that dataset within the `ggplot()` function. No figure will be created with only the `ggplot()` function, a geometry for the plot must be specified in a second line of code. Geometries can be points, lines, histograms, bars, violins, boxes, etc. And you can have multiple geometries in one figure (e.g. lines and points). 
+
+```{r basic plot, message=FALSE}
+ggplot(trees, aes(Height)) + #use the ggplot function. within it specify the dataset (trees) and the variable(s) (height)
+      geom_histogram() #specify your geometry. Here we are doing a histogram, which only needs one variable
+```
+
+
+---
+
+
+## Types of Figures
+
+Below are the basic types of figures we have discussed in prior lectures (fundamentals of data visualization and Data Types and Figures). This is not an exhaustive list of figure types!
+
+
+#####################
+Exercise: As a refresher for variables types and appropriateness with figures, please state which variable type(s) or figure type(s) are appropriate matches. 
+          Figure Type(s)                   Data Type(s)
+          
+          1. Bar chart                    
+          2. Line chart   
+          3.                              Categorical Factors (example: color)
+          4.                              Percent/Proportion (example: % of frogs of 5 different species)
+          
+#####################
+
+
+### Scatterplot
+
+Typically for a scatterplot you are showing a relationship between 2 continuous variables. For example, height and volume of different trees. The idea is to show discrete values for each datum to look at a general patterns and observe any outliers. 
+
+```{r scatterplot}
+
+ggplot(trees, aes(Height, Volume)) +
+  geom_point() #geom_point gives us a scatterplot
+
+
+```
+
+We see the general relationship between Volume and Height of these trees. We would not want to make another type of figure of this relationship, because the points give us all the information we need. 
+
+
+### Line
+
+Typically for line plots we only want to look at the general trend in the data between two continuous variables when they are related to one another. We aren't as interested in the different outliers or individual observations themselves.  We can use a line graph in conjunction with a scatterplot as well. 
+
+```{r line graph}
+ggplot(trees, aes(Height, Volume)) +
+  geom_line() #a regular line graph
+```
+
+Uh oh! We don't see a general trend necessarily; why not? Geom_line connects all the data points together in sequential order. These tree data are random trees in a forest, so the data are not related to one another necessarily. If we wanted to look at just a general trend for the relationship between tree height and volume, we use `geom_smooth`. 
+
+
+```{r smooth line graph, message=FALSE}
+ggplot(trees, aes(Height, Volume)) +
+  geom_smooth() #geom_smooth predicts the relationship between variables (default = LOESS model), giving a trend line and 95% confidence intervals
+
+```
+
+Now with `geom_smooth` we see just the general trend and confidence limits (shading) for the relationship between tree Height and Volume. 
+
+
+### Histogram
+
+We use histograms typically with one continuous variable to look at the distribution or frequency of observations along that variable. We will again use to the tree data for histograms. 
+
+```{r histogram, message=FALSE}
+
+ggplot(trees, aes(Height)) +
+  geom_histogram() #geom_histogram for a histogram figure
+```
+
+We can see there are many trees in this dataset with a heights around 75 and 81 feet. 
+
+### Boxplot
+
+You create boxplots when you want to look at the variability in your data across factors. You want to highlight this variability. Boxplots automatically create quantiles of your data and plot them in vertical box and whisker plots. Outliers are marked as dots outside of the box and whiskers. 
+
+```{r boxplot}
+ggplot(fish, aes(species, length)) + #here we have two variables. One must be a factor and the other on a continuous scale
+  geom_boxplot() #specify the boxplot geometry
+```
+
+We can see the box (25%, 50%, and 75% quantiles), whiskers (95% CI), and points (outliers) corresponding to the length of different fishes.
+
+### Bar
+
+Bar graphs are typically used when you have count data for different factors. You are attempting to visualize and compare the maximum count or some sort of value among different groups. We use the fish dataset to look at the number of fish collected. 
+
+```{r barplot}
+
+#plot species 
+ggplot(fish, aes(species)) +
+  geom_bar()
+
+```
+
+We can see the counts of fish among different species. R automatically calculated those counts. 
+
+
+---
+
+
+### Aesthetics
+
+We can alter essentially every aspect of a graph (color, shape, text size, point size, lines, legends, etc.). There are two ways we can manipulate the graph aspects: global and aesthetic (`aes`) parameters. Global parameters affect the entire plot uniformly, while aesthetics affect only the objects in the plot you are interested in manipulating with the code. Using `aes` (aesthetics) allows you to do a lot more interesting things with the data as well. 
+
+Here, we will alter the plot's point's color, shape, and size using global parameters.
+
+```{r global, warning=FALSE}
+#any specifications in the aes command will be specific to that part of the plot, but everything outside of the aes statements will apply to all of the plot
+ggplot(data = fish, mapping = aes(length, weight)) + #data= and mapping = are not necessary to make the plot, but may help keep information more clear for your own sanity
+  geom_point(color = "red", shape = 12, size = 1) #make the color of the points red, change the size and the shape
+```
+
+Here we changed the size, shape, and color of the points using global parameters which means that all of the points were equally affected. 
+
+Next, we are going to change the color of the points based on the species. 
+
+```{r aesthetics 1, warning=FALSE}
+#any specifications in the aes command will be specific to that part of the plot, but everything outside of the aes statements will apply to all of the plot
+ggplot(data = fish, mapping = aes(length, weight)) + 
+  #make the color of the points change with species of fish
+  # within the geom_points command you can customize the points 
+#you can also use aes statements within the geom statements to pull in different parts of datasets into the same plot (for example, the species factor)
+  geom_point(shape = 2, size = 3, aes(color = species)) #notice how shape and size are outside of aesthetics, because they are still global parameters, so they will affect all of the points equally. But now color will change based on species
+```
+
+The colors of our points change based on data for species. The species variable is a factor, which allows you to have discrete color categories. You can hand pick the colors used for the points too. We also see that `ggplot2` automatically made a legend. This legend can be altered in position, text, etc which we will do in a later lecture. You can put any of the parameters in the aesthetics to change the data points. For examples, we could change the size, shape, or transparency (`alpha`) of the points.
+
+
+#####################
+Exercise: What would happen if you changed color by a continuous variable such as length? 
+          Write code that changes color of the points by fish length. 
+          Is making color vary by fish length an appropriate way to visualize the data? Why?
+          
+#####################
+
+```{r aesthetics 2, warning=FALSE}
+#any specifications in the aes command will be specific to that part of the plot, but everything outside of the aes statements will apply to all of the plot
+ggplot(data = fish, mapping = aes(length, weight))+ 
+  #make the color AND shape of the points change with species of fish
+  geom_point(size = 3, aes(color = species, shape = species)) #notice how size is outside of aesthetics, because it is still a global parameter, so it will affect all of the points equally. But now color AND shape will change based on the species
+```
+
+```{r transparency aesthetics, warning=FALSE}
+#change the transparency of all points equally
+ggplot(fish, aes(length, weight))+
+  geom_point(alpha = 1)
+
+
+#change the transparency by species 
+ggplot(fish, aes(length, weight))+
+  geom_point(aes(alpha = species))
+
+
+```
+
+
+---
+
+
+### Position
+
+You can arrange the position of your data in multiple ways. For barplots, this is really handy for comparing data.
+
+For plots you have 5 main positions: 
+
+* identity- overlapping, all raw count data/number of observations start on x-axis
+* jitter- overlapping, but able to see part of all data as they are off-set from one another (most often used with `geom_point`)
+* stack- stacked raw count data
+* fill- stacked proportion
+* dodge- side by side raw count data
+
+```{r identity}
+ggplot(fish, aes(species, fill = pool))+
+  geom_bar(position = "identity") #overlapping data of raw counts, data are not visible because they overlap bars
+```
+
+```{r jitter}
+ggplot(fish, aes(species, fill = pool))+
+  geom_bar(position = "jitter") #overlapping data of raw counts, data are visible because they are offset
+```
+
+```{r stack}
+ggplot(fish, aes(species, fill = pool))+
+  geom_bar(position = "stack") #stacked data of raw counts, data are all visible because they are stacked bars
+```
+
+```{r fill}
+ggplot(fish, aes(species, fill = pool))+
+  geom_bar(position = "fill") #stacked data of proportions
+```
+
+```{r dodge}
+ggplot(fish, aes(species, fill = pool))+
+  geom_bar(position = "dodge") #side by side raw counts, data are all visible because they are side by side bars
+```
+
+
