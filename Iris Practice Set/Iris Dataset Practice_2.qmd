@@ -229,7 +229,7 @@ I use it frequently when coding and making publishable graphs.
 
 # Challenge on your own
 
-![](penguins/palmerpenguins.png){fig-align="center" width="235"}
+![](images/palmerpenguins-02.png){fig-align="center" width="361"}
 
 You can do this during the workshop and ask questions or on your own during your spare time!
 If you have any questions, my email is bgraha33\@vols.utk.edu and you're more than welcome to reach out and ask questions!
@@ -237,13 +237,13 @@ Furthermore, after this workshop, I will share the document with full answers to
 
 ## Palmer's Penguins
 
+![Meet the penguins!](images/penguins-01.png){fig-align="center" width="447"}
+
 **Overview**: The Penguins dataset, provided by the `palmerpenguins` R package, is a widely used alternative to the classic `iris` dataset (which we were using previously).
 It's designed for data exploration and visualization (perfect for this workshop).
 The dataset contains measurements of three penguins - Adelie, Chinstrap, and Gentoo - collected from three islands in the Palmer Archipeligo, Antarctica.
 
 If you want the full vignette or instructions, visit the ["Introduction to palmerpenguins" website](https://allisonhorst.github.io/palmerpenguins/articles/intro.html#highlights)!
-
-![](penguins/culmen_depth.png){fig-align="center" width="338"}
 
 ### Question 1
 

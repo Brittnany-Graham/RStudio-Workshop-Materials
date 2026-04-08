@@ -251,7 +251,7 @@ I use it frequently when coding and making publishable graphs.
 
 # Challenge on your own
 
-![](penguins/palmerpenguins.png){fig-align="center" width="260"}
+![](images/palmerpenguins-01.png){fig-align="center" width="423"}
 
 You can do this during the workshop and ask questions or on your own during your spare time!
 If you have any questions, my email is bgraha33\@vols.utk.edu and you're more than welcome to reach out and ask questions!
@@ -259,7 +259,7 @@ Furthermore, after this workshop, I will share the document with full answers to
 
 ## Palmer's Penguins
 
-![](penguins/culmen_depth.png){fig-align="center" width="342"}
+![](images/penguins.png){fig-align="center" width="506"}
 
 **Overview**: The Penguins dataset, provided by the `palmerpenguins` R package, is a widely used alternative to the classic `iris` dataset (which we were using previously).
 It's designed for data exploration and visualization (perfect for this workshop).
