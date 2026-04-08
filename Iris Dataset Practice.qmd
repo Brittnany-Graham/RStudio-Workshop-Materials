@@ -45,23 +45,31 @@ For more information, check out the following link [dplyr package](https://dplyr
 
 **However:** I'll provide a few functions that will help you along in the exercise below
 
-\*`distinct()` - selects first occurrence of data
+-   `str()` - stands for "structure" and it looks at the structure of the dataset
 
-\*`rename()` - renames columns
+    -   Tells you how many variables is in the dataset
 
-\*`select()` - select columns
+-   `head()` - gives you the first 5 - 10 rows of the dataset to give you an idea of what's going on
 
-\*`filter()` - filters rows
+<!-- -->
 
-\*`arrange()` - sort data
+-   `distinct()` - selects first occurrence of data
 
-\*`mutate()` - adds new data/manipulations and keeps old data
+-   `rename()` - renames columns
 
-\*`transmute()` - adds new data/manipulations but only keeps new data
+-   `select()` - select columns
 
-\*`group_by()` - groups data
+-   `filter()` - filters rows
 
-\*`summarize()` - summary functions
+-   `arrange()` - sort data
+
+-   `mutate()` - adds new data/manipulations and keeps old data
+
+-   `transmute()` - adds new data/manipulations but only keeps new data
+
+-   `group_by()` - groups data
+
+-   `summarize()` - summary functions
 
 ## Task One: Explore the data
 
@@ -93,8 +101,7 @@ flowers <- iris
 ## head is to view the top 5/6 rows of a dataset 
 head( )
 
-## the 'unique' function
-unique( )
+
 
 ```
 
@@ -114,26 +121,59 @@ unique(flowers$Species)
 
 # subsetting the different species
 setosa <- flowers %>%
-  filter(Species == "setosa")
+  filter( )
 
 versicolor <- flowers %>%
-  filter(Species == "versicolor")
+  filter( )
 
 virginica <- flowers %>%
-  filter (Species == "virginica")
+  filter ( )
 
 ## Next going to calculate the average petal width of each species
 
-mean()
-mean()
-mean()
+mean( )
+mean( )
+mean( )
 ```
 
 ## Small Intro to ggplot package
 
-*'ggplot2'* is a graphing package from the tidyverse.
+*`ggplot2`* is a graphing package from the tidyverse.
 It's incredibly powerful for creating presentation ready and publication-quality graphics.
 There are numerous types of graphs you can create, and you can add onto your code easily to make the graphics more complex.
+
+Below are syntax definitions ggplot needs in order to work:
+
+-   `ggplot()` - calls for a graph and you have to specify the data set you want to graph
+
+<!-- -->
+
+-   `aes()` - aesthetics of the graph.
+    This is where you define data for the x - axis and y - axis (and for the future, shapes and colors)
+
+-   `labs()` - this is where you can change the `labels` on the graph.
+    Such as x - axis, y - axis, title of the graph, and even add a subtitle
+
+-   `theme()` - where you can "clean" the graph and take away the background grid.
+
+    -   `theme_classic()` - gives the graph a blank background
+
+    -   `theme_bw()` - gives the graph a black and white theme
+
+**Next you need to know or understand different graphs within the ggplot package:**
+
+-   `geom_point()` - scatter plot
+
+-   `geom_line()` - line graph
+
+-   `geom_bar()` - bar graph
+
+-   `geom_hist()` - histogram
+
+-   `geom_boxplot()` - box and whisker plot
+
+There are so many graphs housed within the ggplot and these are the most common.
+For a more comprehensive list, visit this comprehensive [ggplot2 guide](https://ggplot2.tidyverse.org/)!
 
 ## Question 3
 
@@ -156,9 +196,10 @@ First, create a scatter plot that showcases the relationship between sepal lengt
 **First bit**
 
 ```{r}
-global_plot <- ggplot(flowers, aes(x = Petal.Length, y = Sepal.Length, shape = Species, color = Species)) +
+global_plot <- ggplot(  , aes(x = , y = , shape = , color = )) +
   geom_point() +
-  theme_classic()
+  theme_classic() +
+
 
 global_plot
 ```
@@ -171,9 +212,9 @@ Let's rename the axis titles and give this plot a title for a cleaner look
 ```{r}
 global_plot2 <- ggplot(flowers, aes(x = Petal.Length, y = Sepal.Length, shape = Species, color = Species)) +
   geom_point() +
-  labs(x = "Petal Length",
-       y = "Sepal Length",
-       title = "Petal and Sepal Length of 3 Species of Flowers") +
+  labs(x = " ",
+       y = " ",
+       title = " ") +
   theme_classic()
 
 global_plot2
@@ -185,6 +226,81 @@ You can change the shapes of each species, you can even change the color, change
 If you are interested in how to do that, this link [R Graphics Cookbook 2nd Edition](https://r-graphics.org/) is a wonderful tool and reference.
 I use it frequently when coding and making publishable graphs.
 
+# Challenge on your own
+
+![](penguins/palmerpenguins.png){fig-align="center" width="235"}
+
+You can do this during the workshop and ask questions or on your own during your spare time!
+If you have any questions, my email is bgraha33\@vols.utk.edu and you're more than welcome to reach out and ask questions!
+Furthermore, after this workshop, I will share the document with full answers to the entire document
+
+## Palmer's Penguins
+
+**Overview**: The Penguins dataset, provided by the `palmerpenguins` R package, is a widely used alternative to the classic `iris` dataset (which we were using previously).
+It's designed for data exploration and visualization (perfect for this workshop).
+The dataset contains measurements of three penguins - Adelie, Chinstrap, and Gentoo - collected from three islands in the Palmer Archipeligo, Antarctica.
+
+If you want the full vignette or instructions, visit the ["Introduction to palmerpenguins" website](https://allisonhorst.github.io/palmerpenguins/articles/intro.html#highlights)!
+
+![](penguins/culmen_depth.png){fig-align="center" width="338"}
+
+### Question 1
+
+Explore the data!
+First you have to install the `palmerpenguins` package, using the `install.packages()` function.
+
+How many rows?
+How many columns?
+What are the names of the variables for the dataset?
+
+**Answer here:**
+
 ```{r}
-library(help = 'datasets')
+
+#install the package
+
+install.packages('palmerpenguins')
+
+## don't forget to 'shelve' it
+
+library(palmerpenguins)
+
+## Explore the data using one of functions listed above. Don't forget put the dataset in a new object name
+
+
+
+
 ```
+
+::: callout-tip
+## Handling NA's
+
+**NA's** are missing values within the dataset and are very common when collecting data.
+There are specific ways we handle these
+
+This dataset is more realistic than the `iris` dataset because it has missing values which is what happens when collecting data sometimes.
+I will provide the full code on how to delete rows or arrange rows with NA's
+:::
+
+```{r}
+summary(antarctica)
+
+## As you can see there are multiple NA's in some rows and we need to filter those out, so we will do it with the function `drop_na` which removes the rows with missing values to enable easy and accurate graphing
+
+antarctica <- antarctica %>%
+  drop_na()
+
+## Now check again
+
+summary(antarctica)
+
+## As you can see the NA's have been removed from the dataset
+```
+
+## Question 2
+
+Now I want you to create 4 graphs
+
+1.  "Global Graph" that looks at flipper length and bill length across the 3 species.
+    1.  a\. I want your graph to have 3 things: clean labels, an informative title, and a clean background
+2.  
