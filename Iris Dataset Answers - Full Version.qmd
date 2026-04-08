@@ -322,11 +322,89 @@ summary(antarctica)
 ## As you can see there are multiple NA's in some rows and we need to filter those out, so we will do it with the function `drop_na` which removes the rows with missing values to enable easy and accurate graphing
 
 antarctica <- antarctica %>%
-  drop_na()
+  drop_na() # this function takes out any rows containing the value NA
+
+# the code to the left of the arrow is telling R: "take the dataset I've given you, take out rows that have any value in a cell that says NA, and then put it back into the same dataset"
+
 
 ## Now check again
 
 summary(antarctica)
 
 ## As you can see the NA's have been removed from the dataset
+```
+
+::: callout-caution
+## Applying this to the full dataset
+
+When you are manipulating data and are applying functions to the whole dataset ***be careful***.
+R is unforgiving and if you accidentally do something that affects the whole dataset and alters it in a way you don't want it to, you will have to start over.
+
+**Best Practice:** place your changes in a new object name, so if you do mess up, you can revert to the "previous version" of your dataset and won't have to start from scratch.
+:::
+
+## Question 2
+
+Now I want you to create 3 graphs
+
+1.  "Global Graph" that looks at bill length and bill depth across the 3 species (it'll be a scatter plot).
+    1.  a\. I want your graph to have 3 things: clean labels, an informative title, and a clean background
+    2.  a\. if you feel so inclined, change the colors using the function `scale_color_manual()` function and use the colors "dargeorange", "purple", "cyan4" (**Note:** you have to put names of colors in quotation marks. Also, feel free to utilize google, or the other resources provided such as the cookbook! If you're still struggling, raise your hand)
+2.  A scatter plot looking at the body mass and flipper length across the three species
+3.  Create a histogram of flipper length per species! I'll fill out the histogram portion myself and tell you what each line means
+
+### Graph 1
+
+Remember, you'll be using ggplot!
+
+```{r}
+
+ggplot(antarctica, aes(x = bill_length_mm, y = bill_depth_mm, shape = species, color = species)) +
+  geom_point(aes(color = species,
+             shape = species),
+             size = 2,
+             alpha = 0.8) +
+  scale_color_manual(values = c("darkorange", "purple", "cyan4")) +
+  labs(
+    x = "Bill Length (mm)",
+    y = "Bill Depth (mm)",
+    title = "Antartica Penguins Bill Length vs Bill Depth"
+  ) +
+  theme_classic()
+
+```
+
+### Graph 2
+
+```{r}
+
+ggplot(antarctica, aes(x = body_mass_g, y = flipper_length_mm, shape = species, color = species)) +
+  geom_point(aes(color = species,
+                 shape = species),
+             size = 2,
+             alpha = 0.8) + 
+  scale_color_manual(values = c("darkorange", "purple", "cyan4")) +
+  labs(x = "Body Mass (g)",
+       y = "Flipper Length (mm)",
+       title = "Body Mass and Flipper Length for Three Species of Penguins in Antartica") +
+  theme_classic()
+```
+
+### Graph 3
+
+This will be the histogram
+
+```{r}
+
+flipper_hist <- ggplot(antarctica, aes(x = flipper_length_mm)) +
+  geom_histogram(aes(fill = species),
+                 alpha = 0.5, 
+                 position = "identity") +
+  scale_fill_manual(values = c("darkorange", "purple", "cyan4")) +
+  labs(x = "Flipper Length (mm)",
+       y = "Frequency",
+       title = "Penguin Flipper Lengths") +
+  theme_bw()
+
+flipper_hist
 ```
