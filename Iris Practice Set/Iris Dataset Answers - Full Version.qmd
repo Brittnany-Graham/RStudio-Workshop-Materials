@@ -176,21 +176,11 @@ There are numerous types of graphs you can create, and you can add onto your cod
 
 Below are syntax definitions ggplot needs in order to work:
 
--   `ggplot()` - calls for a graph and you have to specify the data set you want to graph.
-    This is also where you can make changes to the graph uniformly.
-
-<!-- -->
-
--   `aes()` - aesthetics of the graph.
-    This is where you define data for the x - axis and y - axis
-
+-   `ggplot()` - calls for a graph and you have to specify the data set you want to graph. This is also where you can make changes to the graph uniformly.
+-   `aes()` - aesthetics of the graph. This is where you define data for the x - axis and y - axis
     -   You can manipulate and change specific objects within the plot that we are interested in, such as shapes, colors, text size, legends, ect.
-
--   `labs()` - this is where you can change the `labels` on the graph.
-    Such as x - axis, y - axis, title of the graph, and even add a subtitle
-
+-   `labs()` - this is where you can change the `labels` on the graph. Such as x - axis, y - axis, title of the graph, and even add a subtitle
 -   `theme()` - where you can "clean" the graph and take away the background grid.
-
     -   `theme_classic()` - gives the graph a blank background
 
     -   `theme_bw()` - gives the graph a black and white theme
