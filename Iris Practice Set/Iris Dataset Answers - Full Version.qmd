@@ -153,11 +153,11 @@ virginica <- flowers %>%
 
 ## Next going to calculate the average petal width of each species  
 
-mean(setosa$`Petal Width`) 
+## Next going to look at some summary stats for each species
 
-mean(versicolor$`Petal Width`) 
-
-mean(virginica$`Petal Width`)
+summary(setosa)
+summary(versicolor)
+summary(virginica)
 ```
 
 **Answer:**

@@ -26,10 +26,11 @@ The tidyverse package houses multiple packages that is used frequently in RStudi
 This is to avoid loading multiple libraries each time
 
 ```{r}
+
+
 # install.packages("tidyverse")
 library(tidyverse)
 
-green_checkmark <- insert_emoji("check")
 
 # putting the iris dataset in a new object name
 ```
@@ -74,7 +75,7 @@ For more information, check out the following link [dplyr package](https://dplyr
 
 -   `group_by()` - groups data
 
--   `summarize()` - summary functions
+-   `summary()` - summary functions such as mean, median, mode, first and third quartiles, etc.
 
 ## Task One: Explore the data
 
@@ -85,6 +86,9 @@ What are some questions that first pop into your mind?
 What kind of structure is the data set?
 
 ```{r}
+
+flowers <- iris
+
 str(flowers)
 head(flowers)
 dim(flowers)
@@ -105,8 +109,8 @@ What are their names?
 flowers <- iris
 
 ## head is to view the top 5/6 rows of a dataset 
-head( )
-dim( )
+head(flowers)
+dim(flowers)
 
 
 ```
@@ -129,19 +133,22 @@ unique(flowers$Species)
 
 # subsetting the different species
 setosa <- flowers %>%
-  filter( )
+  filter(Species == "setosa")
+# view(setosa)
 
 versicolor <- flowers %>%
-  filter( )
+  filter(Species == "versicolor" )
 
 virginica <- flowers %>%
-  filter ( )
+  filter (Species == "virginica")
+
+dim(flowers)
 
 ## Next going to look at some summary stats for each species
 
-summarize( )
-summarize( )
-summarize( )
+summary( )
+summary( )
+summary( )
 ```
 
 ## Small Intro to ggplot package
@@ -197,9 +204,9 @@ First, create a scatter plot that showcases the relationship between sepal lengt
 **First bit**
 
 ```{r}
-global_plot <- ggplot(  , aes(x = , y = , shape = , color = )) +
+global_plot <- ggplot(flowers, aes(x = Sepal.Length, y = Sepal.Width, shape = Species, color = Species)) +
   geom_point() +
-  theme_classic() +
+  theme_classic()
 
 
 global_plot
@@ -213,9 +220,9 @@ Let's rename the axis titles and give this plot a title for a cleaner look
 ```{r}
 global_plot2 <- ggplot(flowers, aes(x = Petal.Length, y = Sepal.Length, shape = Species, color = Species)) +
   geom_point() +
-  labs(x = " ",
-       y = " ",
-       title = " ") +
+  labs(x = "Petal Length",
+       y = "Sepal Length",
+       title = "Sepal Length vs Petal Length in Three Flower Species") +
   theme_classic()
 
 global_plot2
